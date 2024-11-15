@@ -1,0 +1,103 @@
+IC WRITE
+
+[FE]-00 // page0
+[FA]-01 // [FAxx]-01 VESA ON
+
+[FE]-D2 // pageD2
+[97]-08 // [97D2]-08, use ENG PPS
+
+//please refer to set_basic // [FE]-A1 // pageA1
+//please refer to set_basic // [75]-B3 // [75A1]-B3, MIPI VESA 模式強推, 75A1{dft='ha3) = {XREG_mipi_cmdmod_res_sp_en, XREG_mipi_vidmod_res_sp_en, XREG_mipi_res_vesa_auto, XREG_mipi_res_sz_bpp_auto, XREG_mipi_err_to_2c_gat2_off, XREG_mipi_err_to_2c_gat_off, XREG_mipi_cmdmod_res_sp_val[25:24]}; 
+
+[FE]-D2 // pageD2
+
+[36]-11 // pps000[7:3][3:0]        =(cfg) {DSC_VERSION_MAJOR[3:0], DSC_VERSION_MINOR[3:0]}
+[39]-89 // pps003[7:4][3:0]        =(cfg) {bpc[3:0], linebuf_depth[3:0]} = {bits_per_component[3:0], LINE_BUFFER_BPC[3:0]}
+[3A]-30 // pps004[5][4][3][2][1:0] =(cfg) {BP, not_useYuvInput(enc_convert_RGB2YCoCg), simple422, VBR, bpp[9:8]} = {BLOCK_PRED_ENABLE, ~USE_YUV_INPUT, SIMPLE_422, VBR_ENABLE, bits_per_pixel[9:8]}
+[3B]-80 // pps005[7:0]             =(cfg) {bpp[7:0]} = {bits_per_pixel[7:0]} ==> bpp_int='d128
+[3D]-00 // pps006[7:0]             =(cfg) {pic_height[15:8]}
+[3F]-64 // pps007[7:0]             =(cfg) {pic_height[7:0]} ==> pic_height='d100
+[40]-00 // pps008[7:0]             =(cfg) {pic_width[15:8]}
+[41]-64 // pps009[7:0]             =(cfg) {pic_width[7:0] } ==> pic_width ='d100
+[42]-00 // pps010[7:0]             =(cfg) {slice_height[15:8]} = SLICE_HEIGHT[15:8]}
+[43]-64 // pps011[7:0]             =(cfg) {slice_height[7:0]}  = SLICE_HEIGHT[7:0]} ==> slice_height='d100
+[44]-00 // pps012[7:0]             =(cfg) {slice_width[15:8]}  = SLICE_WIDTH[15:8]}
+[45]-64 // pps013[7:0]             =(cfg) {slice_width[7:0]}   = SLICE_WIDTH[7:0]},  ==> slice_width ='d100
+[46]-00 // pps014[7:0]             =(dyn) {chunk_size[15:8]}
+[47]-64 // pps015[7:0]             =(dyn) {chunk_size[7:0]} ==> chunk_size='d100
+[48]-02 // pps016[1:0]             =(cfg) {initial_xmit_delay[9:8]} = {INITIAL_DELAY[9:8]}
+[49]-00 // pps017[7:0]             =(cfg) {initial_xmit_delay[7:0]} = {INITIAL_DELAY[7:0]} ==> initial_xmit_delay='d512
+[4A]-01 // pps018[7:0]             =(dyn) {initial_dec_delay[15:8]}
+[4B]-33 // pps019[7:0]             =(dyn) {initial_dec_delay[7:0]} ==> initial_dec_delay='d307
+[4D]-20 // pps021[5:0]             =(dyn) {initial_scale_value[5:0]}
+[4E]-03 // pps022[7:0]             =(dyn) {scale_increment_interval[15:8]}
+[4F]-0d // pps023[7:0]             =(dyn) {scale_increment_interval[7:0]} ==> scale_increment_interval='d781
+[50]-00 // pps024[3:0]             =(dyn) {scale_decrement_interval[11:8]}
+[51]-01 // pps025[7:0]             =(dyn) {scale_decrement_interval[7:0]} ==> scale_decrement_interval='d1
+[53]-0c // pps027[4:0]             =(dyn) {first_line_bpg_offset[4:0]} = {first_line_bpg_ofs[4:0]}
+[54]-00 // pps028[7:0]             =(dyn) {nfl_bpg_offset[15:8]}
+[55]-f9 // pps029[7:0]             =(dyn) {nfl_bpg_offset[7:0]} ==> nfl_bpg_offset='d249
+[56]-05 // pps030[7:0]             =(dyn) {slice_bpg_offset[15:8]}
+[58]-59 // pps031[7:0]             =(dyn) {slice_bpg_offset[7:0]} ==> slice_bpg_offset='d1369
+[59]-18 // pps032[7:0]             =(cfg) {initial_offset[15:8]} = {INITIAL_FULLNESS_OFFSET[15:8]}
+[5A]-00 // pps033[7:0]             =(cfg) {initial_offset[7:0]}  = {INITIAL_FULLNESS_OFFSET [7:0]} ==> INITIAL_FULLNESS_OFFSET='d6144
+[5B]-10 // pps034[7:0]             =(dyn) {final_offset[15:8]}
+[5C]-e0 // pps035[7:0]             =(dyn) {final_offset[7:0]} ==> final_offset='d4320
+[5D]-03 // pps036[4:0]             =(cfg) {flatness_min_qp[4:0]} = {FLATNESS_MIN_QP[4:0]}
+[5E]-0c // pps037[4:0]             =(cfg) {flatness_max_qp[4:0]} = {FLATNESS_MAX_QP[4:0]}
+[5F]-20 // pps038[7:0]             =(cfg) {rc_model_size[15:8]} = {RC_MODEL_SIZE[15:8]}
+[60]-00 // pps039[7:0]             =(cfg) {rc_model_size[7:0]}  = {RC_MODEL_SIZE[7:0]} ==> rc_model_size='d8192
+[61]-06 // pps040[3:0]             =(cfg) {rc_edge_factor[3:0]} = {RC_EDGE_FACTOR[3:0]}
+[62]-0b // pps041[4:0]             =(cfg) {rc_quant_incr_limit0[4:0]} = {RC_QUANT_INCR_LIMIT0[4:0]}
+[63]-0b // pps042[4:0]             =(cfg) {rc_quant_incr_limit1[4:0]} = {RC_QUANT_INCR_LIMIT1[4:0]}
+[64]-33 // pps043[7:4][3:0]        =(cfg) {rc_tgt_offset_hi[3:0], rc_tgt_offset_lo[3:0]} = {RC_TGT_OFFSET_HI[3:0], RC_TGT_OFFSET_LO[3:0]}
+[65]-0e // pps044[7:0]<<6          =(cfg) {rc_buf_thresh[0] [13:0]} = RC_BUF_THRESH[0] [13:0]
+[66]-1c // pps045[7:0]<<6          =(cfg) {rc_buf_thresh[1] [13:0]} = RC_BUF_THRESH[1] [13:0]
+[67]-2a // pps046[7:0]<<6          =(cfg) {rc_buf_thresh[2] [13:0]} = RC_BUF_THRESH[2] [13:0]
+[68]-38 // pps047[7:0]<<6          =(cfg) {rc_buf_thresh[3] [13:0]} = RC_BUF_THRESH[3] [13:0]
+[69]-46 // pps048[7:0]<<6          =(cfg) {rc_buf_thresh[4] [13:0]} = RC_BUF_THRESH[4] [13:0]
+[6A]-54 // pps049[7:0]<<6          =(cfg) {rc_buf_thresh[5] [13:0]} = RC_BUF_THRESH[5] [13:0]
+[6B]-62 // pps050[7:0]<<6          =(cfg) {rc_buf_thresh[6] [13:0]} = RC_BUF_THRESH[6] [13:0]
+[6C]-69 // pps051[7:0]<<6          =(cfg) {rc_buf_thresh[7] [13:0]} = RC_BUF_THRESH[7] [13:0]
+[6D]-70 // pps052[7:0]<<6          =(cfg) {rc_buf_thresh[8] [13:0]} = RC_BUF_THRESH[8] [13:0]
+[6E]-77 // pps053[7:0]<<6          =(cfg) {rc_buf_thresh[9] [13:0]} = RC_BUF_THRESH[9] [13:0]
+[6F]-79 // pps054[7:0]<<6          =(cfg) {rc_buf_thresh[10][13:0]} = RC_BUF_THRESH[10][13:0]
+[70]-7b // pps055[7:0]<<6          =(cfg) {rc_buf_thresh[11][13:0]} = RC_BUF_THRESH[11][13:0]
+[71]-7d // pps056[7:0]<<6          =(cfg) {rc_buf_thresh[12][13:0]} = RC_BUF_THRESH[12][13:0]
+[72]-7e // pps057[7:0]<<6          =(cfg) {rc_buf_thresh[13][13:0]} = RC_BUF_THRESH[13][13:0]
+[73]-01 // pps058[7:3][2:0]        =(cfg) {range_min_qp_0[4:0] , range_max_qp_0[4:2]      } = {RC_MINQP[0][4:0], RC_MAXQP[0][4:2]    }
+[74]-02 // pps059[7:6][5:0]        =(cfg) {range_max_qp_0[1:0] , range_bpg_offset_0[5:0]  } = {RC_MAXQP[0][1:0], RC_OFFSET[0][5:0]   }
+[75]-01 // pps060[7:3][2:0]        =(cfg) {range_min_qp_1[4:0] , range_max_qp_1[4:2]      } = {RC_MINQP[1][4:0], RC_MAXQP[1][4:2]    }
+[76]-00 // pps061[7:6][5:0]        =(cfg) {range_max_qp_1[1:0] , range_bpg_offset_1[5:0]  } = {RC_MAXQP[1][1:0], RC_OFFSET[1][5:0]   }
+[77]-09 // pps062[7:3][2:0]        =(cfg) {range_min_qp_2[4:0] , range_max_qp_2[4:2]      } = {RC_MINQP[2][4:0], RC_MAXQP[2][4:2]    }
+[78]-40 // pps063[7:6][5:0]        =(cfg) {range_max_qp_2[1:0] , range_bpg_offset_2[5:0]  } = {RC_MAXQP[2][1:0], RC_OFFSET[2][5:0]   }
+[79]-09 // pps064[7:3][2:0]        =(cfg) {range_min_qp_3[4:0] , range_max_qp_3[4:2]      } = {RC_MINQP[3][4:0], RC_MAXQP[3][4:2]    }
+[7A]-be // pps065[7:6][5:0]        =(cfg) {range_max_qp_3[1:0] , range_bpg_offset_3[5:0]  } = {RC_MAXQP[3][1:0], RC_OFFSET[3][5:0]   }
+[7B]-19 // pps066[7:3][2:0]        =(cfg) {range_min_qp_4[4:0] , range_max_qp_4[4:2]      } = {RC_MINQP[4][4:0], RC_MAXQP[4][4:2]    }
+[7C]-fc // pps067[7:6][5:0]        =(cfg) {range_max_qp_4[1:0] , range_bpg_offset_4[5:0]  } = {RC_MAXQP[4][1:0], RC_OFFSET[4][5:0]   }
+[7D]-19 // pps068[7:3][2:0]        =(cfg) {range_min_qp_5[4:0] , range_max_qp_5[4:2]      } = {RC_MINQP[5][4:0], RC_MAXQP[5][4:2]    }
+[7E]-fa // pps069[7:6][5:0]        =(cfg) {range_max_qp_5[1:0] , range_bpg_offset_5[5:0]  } = {RC_MAXQP[5][1:0], RC_OFFSET[5][5:0]   }
+[7F]-19 // pps070[7:3][2:0]        =(cfg) {range_min_qp_6[4:0] , range_max_qp_6[4:2]      } = {RC_MINQP[6][4:0], RC_MAXQP[6][4:2]    }
+[80]-f8 // pps071[7:6][5:0]        =(cfg) {range_max_qp_6[1:0] , range_bpg_offset_6[5:0]  } = {RC_MAXQP[6][1:0], RC_OFFSET[6][5:0]   }
+[81]-1a // pps072[7:3][2:0]        =(cfg) {range_min_qp_7[4:0] , range_max_qp_7[4:2]      } = {RC_MINQP[7][4:0], RC_MAXQP[7][4:2]    }
+[82]-38 // pps073[7:6][5:0]        =(cfg) {range_max_qp_7[1:0] , range_bpg_offset_7[5:0]  } = {RC_MAXQP[7][1:0], RC_OFFSET[7][5:0]   }
+[83]-1a // pps074[7:3][2:0]        =(cfg) {range_min_qp_8[4:0] , range_max_qp_8[4:2]      } = {RC_MINQP[8][4:0], RC_MAXQP[8][4:2]    }
+[84]-78 // pps075[7:6][5:0]        =(cfg) {range_max_qp_8[1:0] , range_bpg_offset_8[5:0]  } = {RC_MAXQP[8][1:0], RC_OFFSET[8][5:0]   }
+[85]-1a // pps076[7:3][2:0]        =(cfg) {range_min_qp_9[4:0] , range_max_qp_9[4:2]      } = {RC_MINQP[9][4:0], RC_MAXQP[9][4:2]    }
+[86]-b6 // pps077[7:6][5:0]        =(cfg) {range_max_qp_9[1:0] , range_bpg_offset_9[5:0]  } = {RC_MAXQP[9][1:0], RC_OFFSET[9][5:0]   }
+[87]-2a // pps078[7:3][2:0]        =(cfg) {range_min_qp_10[4:0], range_max_qp_10[4:2]     } = {RC_MINQP[10][4:0], RC_MAXQP[10][4:2]  }
+[88]-f6 // pps079[7:6][5:0]        =(cfg) {range_max_qp_10[1:0], range_bpg_offset_10[5:0] } = {RC_MAXQP[10][1:0], RC_OFFSET[10][5:0] }
+[89]-2b // pps080[7:3][2:0]        =(cfg) {range_min_qp_11[4:0], range_max_qp_11[4:2]     } = {RC_MINQP[11][4:0], RC_MAXQP[11][4:2]  }
+[8A]-34 // pps081[7:6][5:0]        =(cfg) {range_max_qp_11[1:0], range_bpg_offset_11[5:0] } = {RC_MAXQP[11][1:0], RC_OFFSET[11][5:0] }
+[8B]-2b // pps082[7:3][2:0]        =(cfg) {range_min_qp_12[4:0], range_max_qp_12[4:2]     } = {RC_MINQP[12][4:0], RC_MAXQP[12][4:2]  }
+[8C]-74 // pps083[7:6][5:0]        =(cfg) {range_max_qp_12[1:0], range_bpg_offset_12[5:0] } = {RC_MAXQP[12][1:0], RC_OFFSET[12][5:0] }
+[8D]-3b // pps084[7:3][2:0]        =(cfg) {range_min_qp_13[4:0], range_max_qp_13[4:2]     } = {RC_MINQP[13][4:0], RC_MAXQP[13][4:2]  }
+[8E]-74 // pps085[7:6][5:0]        =(cfg) {range_max_qp_13[1:0], range_bpg_offset_13[5:0] } = {RC_MAXQP[13][1:0], RC_OFFSET[13][5:0] }
+[8F]-6b // pps086[7:3][2:0]        =(cfg) {range_min_qp_14[4:0], range_max_qp_14[4:2]     } = {RC_MINQP[14][4:0], RC_MAXQP[14][4:2]  }
+[90]-f4 // pps087[7:6][5:0]        =(cfg) {range_max_qp_14[1:0], range_bpg_offset_14[5:0] } = {RC_MAXQP[14][1:0], RC_OFFSET[14][5:0] }
+[91]-00 // pps088[1][0]            =(cfg) {native_420, native_422} = {NATIVE_420, NATIVE_422}
+[92]-00 // pps089[4:0]             =(dyn) {second_line_bpg_offset[4:0]}
+[93]-00 // pps090[7:0]             =(dyn) {nsl_bpg_offset[15:8]}
+[94]-00 // pps091[7:0]             =(dyn) {nsl_bpg_offset[7:0]}
+[95]-00 // pps092[7:0]             =(dyn) {second_line_offset_adj[15:8]}
+[96]-00 // pps093[7:0]             =(dyn) {second_line_offset_adj[7:0]}
